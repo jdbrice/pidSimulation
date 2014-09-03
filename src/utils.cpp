@@ -38,16 +38,17 @@ namespace jdbUtils{
 
     	// decide when to update
     	if ( i == 0 || (i % res ) == 0 || i == nevents - 1  ){
+			
 			// skip for non interactive output
 			if (!isatty(fileno(stdout)) && progress <= 1 )
 				return;
 
 			double per = progress  * 100;
-			per = TMath::Nint( per );
+			per = round( per );
 
 			cout << "[";
 	    	for ( int ip = 0; ip < max; ip ++ ){
-	    		if ( ip < TMath::Nint( (progress * (double)max) ) )
+	    		if ( ip < round( (progress * (double)max) ) )
 	    			cout << "=";
 	    		else 
 	    			cout << " ";
