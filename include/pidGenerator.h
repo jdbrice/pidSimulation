@@ -213,8 +213,8 @@ protected:
 			double p = (lowP + highP) / 2.0; // take the center of the p bin
 
 			// compute the histogram limits
-			double kDedxMean = TMath::Log10( dedx->mean( p, masses[ 1 ] ) );
-			double kTofMean = tof->mean( p, masses[ 1 ] );
+			double kDedxMean = TMath::Log10( dedx->mean( p, masses[ config.centerSpecies ] ) );
+			double kTofMean = tof->mean( p, masses[ config.centerSpecies ] );
 
 			double 	lowDedxMean = 0,
 					highDedxMean = 0,

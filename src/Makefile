@@ -1,6 +1,6 @@
 
 # project name and executable name
-project = app
+project = simulate
 # source suffix
 source = .cpp 
 # object files to make

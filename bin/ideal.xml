@@ -1,6 +1,6 @@
 <config>
 
-	<output>pidIdealEvents.root</output>
+	<output>noSmearNoMismatchSim.root</output>
 	<nEvents>1000000</nEvents>
 
 	<tof>

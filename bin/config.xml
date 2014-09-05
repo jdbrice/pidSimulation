@@ -1,6 +1,6 @@
 <config>
 
-	<output>pidSimEvents.root</output>
+	<output>simulatedPid.root</output>
 	<nEvents>100000000</nEvents>
 
 	<tof>

@@ -17,10 +17,13 @@ int main( int argc, char* argv[] ) {
 		xmlConfig config( argv[ 1 ] );
 		config.report();
 
+		// load the simulation options from the config file
 		pidGeneratorConfig pidGenConfig = fromConfig( &config );
 
+		// create a new pidSimulation generator from the config
 		pidGenerator *pidGen = new pidGenerator( pidGenConfig );
 		
+		// generate the events
 		pidGen->generate(  );
 
 		delete pidGen;

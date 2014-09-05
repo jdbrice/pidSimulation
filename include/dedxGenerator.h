@@ -26,7 +26,13 @@ class dedxGenerator
 {
 protected:
 
+	/**
+	 * Parameters for the 8th order fit for dedx
+	 */
 	static const double pars[];
+	/**
+	 * Random number generator with periodicity 10**600
+	 */
 	TRandom3 * rGen;
 
 public:
@@ -43,6 +49,7 @@ public:
 
 	/**
 	 * Calculates the expected mean dedx value ( in [KeV/cm] )
+	 * using an 8th order polynomial parametrization
 	 * @param  p    Momentum [KeV/c]
 	 * @param  mass Mass
 	 * @return      Expected dedx value for given p, m
@@ -86,6 +93,7 @@ public:
 
 	        } while ( dedx_vals[i] < 0 || dedx_vals[i] > 1e10 );
 	    }
+	    
 	    // Sort the points into order
 	    TMath::Sort(dedx_points, dedx_vals, order, false);
 

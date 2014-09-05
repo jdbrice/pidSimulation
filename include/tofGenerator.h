@@ -29,10 +29,10 @@ public:
 	/**
 	 * Constructor
 	 * @param obSigma  The sigma value to be used when generating random 1/beta values
-	 * @param nSamples The number of samples to use wen generating a random 1/beta value
+	 * @param nSamples The number of samples to use when generating a random 1/beta value
 	 *
 	 * The constructor sets up its own TRandom3 random number generator.
-	 * This makes each instance have a new unique Seed  and generator (with TRandom3 the periodicity is 10**600 )
+	 * This makes each instance have a new unique Seed and generator (with TRandom3 the periodicity is 10**600 )
 	 */
 	tofGenerator( double obSigma = 0.012, int nSamples = 10 ){
 		this->obSigma = obSigma;
