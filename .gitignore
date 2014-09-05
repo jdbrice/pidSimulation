@@ -19,4 +19,5 @@
 /bin/app
 # but keep the sample config
 !/bin/config.xml
+!/bin/ideal.xml
 

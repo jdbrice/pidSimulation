@@ -4,81 +4,92 @@
 #include "constants.h"
 #include "histoBook.h"
 #include "xmlConfig.h"
-#include "jdbUtils.h"
 
-using namespace jdbUtils;
+#include "pidGenerator.h"
+#include "pidGeneratorConfig.h"
 
-/* 
-*
-*	GUI Application
-*
-*/
-/*
-int main(int argc, char* argv[]) {
-
-  TApplication* rootapp = new TApplication("example",&argc, argv);
-
-  TRandom1* myrand = new TRandom1();
-  TH1F* myhist = new TH1F("stats","",100,0,10);
-  for(int i=0;i<10000;++i) {
-    myhist->Fill(myrand->Gaus(5,1));
-  }
-  myhist->Draw();
-  rootapp->Run();
-  return 0;
-}
-*/
+pidGeneratorConfig fromConfig( xmlConfig * config );
 
 int main( int argc, char* argv[] ) {
 
-	cout << "const: " << Constants::nChannels << endl;
-    if ( argc >= 2 ){
-        xmlConfig config( argv[ 1 ] );
-        config.report();
 
-        config.childrenOf( "input" );
-        cout << "file: " << config.getString( "input.rootIn:file" ) << endl;
+	if ( argc >= 2 ){
+		xmlConfig config( argv[ 1 ] );
+		config.report();
 
-        histoBook* book = new histoBook( "out.root", &config, config.getString( "input.rootIn:file" ) );
+		pidGeneratorConfig pidGenConfig = fromConfig( &config );
 
-        cout << " book : " << book->get( "nSig_K_All" ) << endl;
+		pidGenerator *pidGen = new pidGenerator( pidGenConfig );
+		
+		pidGen->generate(  );
 
-        if ( book->exists( "nSig_K_All" ) )
-            book->style( "nSig_K_All" )->draw( )->exportAs();
-
-        book->set( &config, "style.s1" );
-        book->set( "legend", "help", "lpf" );
-
-        cout << "bins.p" << config.getString( "bins.p" ) << endl;
-
-        config.getDoubleVector( "textText" );
-
-        book->makeAll( "h" );
-
-        cout << " red is : " << book->color( "green" ) << endl;
-        book->style( "a" );
-        book->style( "b" );
-        //book->set( "hello", vector<string>( {"1", "2"} ) ) ;
-
-        vector<double> t = config.getDoubleVector( "bins.p2" );
-        
-
-        delete book;
-
-        cout << "jdbUtils Tests: " << endl;
-        cout << " int to string " << ts( 1000 ) << endl;
-        cout << " double to string " << ts( 1000.123123 ) << endl;
-        cout << " float to string " << ts( 1000.123f ) << endl;
-
-        taskTimer tt;
-        tt.start();
-        for ( int i = 0; i < 2000; i++ ){
-          progressBar( i, 2000 );
-        }
-        cout << "Elapsed: " << tt.elapsed() << " [sec] " << endl;
-        
-    }
+		delete pidGen;
+	}
 
 
 	return 0;
 }
+
+/**
+ * Loads the pidGenerator configuration into the class from an xmlConfig object
+ * @param  config xmlConfig object with the config options specified
+ * @return        the pidGeneratorConfig with the specified values loaded in
+ */
+pidGeneratorConfig fromConfig( xmlConfig * config ){
+
+	pidGeneratorConfig pgc;
+
+	pgc.outFilename 		= config->getString( "output", pgc.outFilename );
+	pgc.nEvents 			= config->getInt( "nEvents", pgc.nEvents );
+	
+	pgc.oneBetaSigma 		= config->getDouble( "tof.oneBetaSigma", pgc.oneBetaSigma );
+	pgc.nTofSamples 		= config->getDouble( "tof.nSamples", pgc.nTofSamples );
+	
+	pgc.paddingScaleDedx 	= config->getDouble( "paddingScale:dedx", pgc.paddingScaleDedx );
+	pgc.paddingScaleTof 	= config->getDouble( "paddingScale:tof", pgc.paddingScaleTof );
+	pgc.paddingDedx 		= config->getDouble( "padding:dedx", pgc.paddingDedx );
+	pgc.paddingTof 			= config->getDouble( "padding:tof", pgc.paddingTof );
+
+	pgc.pCutLow 			= config->getDouble( "binning.pRange:low", pgc.pCutLow );
+	pgc.pCutHigh 			= config->getDouble( "binning.pRange:high", pgc.pCutHigh );
+	pgc.pBinWidth 			= config->getDouble( "binning.dedxTofBinWidth:p", pgc.pBinWidth );
+	pgc.tofBinWidth 		= config->getDouble( "binning.dedxTofBinWidth:tof", pgc.tofBinWidth );
+	pgc.dedxBinWidth 		= config->getDouble( "binning.dedxTofBinWidth:dedx", pgc.dedxBinWidth );
+
+	pgc.tofCutLow 			= config->getDouble( "binning.tof:low", pgc.tofCutLow );
+	pgc.tofCutHigh 			= config->getDouble( "binning.tof:high", pgc.tofCutHigh );
+	pgc.tofVsPBinWidth  	= config->getDouble( "binning.tof:binWidth", pgc.tofVsPBinWidth );
+
+	pgc.dedxCutLow 			= config->getDouble( "binning.dedx:low", pgc.dedxCutLow );
+	pgc.dedxCutHigh 		= config->getDouble( "binning.dedx:high", pgc.dedxCutHigh );
+	pgc.dedxVsPBinWidth  	= config->getDouble( "binning.dedx:binWidth", pgc.dedxVsPBinWidth );
+
+	pgc.centerSpecies 		= config->getDouble( "centering:species", pgc.centerSpecies );
+	pgc.centerSigmaDedx 	= config->getDouble( "centering:sigmaDedx", pgc.centerSigmaDedx );
+	pgc.centerSigmaTof 		= config->getDouble( "centering:sigmaTof", pgc.centerSigmaTof );
+
+	pgc.smearP 				= config->getDouble( "detectorEffects.smearP", pgc.smearP );
+	pgc.tofMismatch 		= config->getDouble( "detectorEffects.tofMismatch", pgc.tofMismatch );
+	pgc.phiMismatch 		= config->getDouble( "detectorEffects.phiMismatch", pgc.phiMismatch );
+	pgc.pMismatch 			= config->getDouble( "detectorEffects.pMismatch", pgc.pMismatch );
+
+
+	return pgc;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

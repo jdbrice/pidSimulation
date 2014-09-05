@@ -1,7 +1,7 @@
 <config>
 
-	<output>pidSimEvents.root</output>
-	<nEvents>100000000</nEvents>
+	<output>pidIdealEvents.root</output>
+	<nEvents>1000000</nEvents>
 
 	<tof>
 		<oneBetaSigma>0.012</oneBetaSigma>
@@ -29,10 +29,10 @@
 
 	<detectorEffects>
 		
-		<smearP>0.02</smearP>
-		<tofMismatch>0.08</tofMismatch>
-		<phiMismatch>0.03</phiMismatch>
-		<pMismatch>0.05</pMismatch>
+		<smearP>0.00</smearP>
+		<tofMismatch>0.00</tofMismatch>
+		<phiMismatch>0.00</phiMismatch>
+		<pMismatch>0.00</pMismatch>
 
 	</detectorEffects>
 

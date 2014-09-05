@@ -34,7 +34,7 @@ public:
 	 * The constructor sets up its own TRandom3 random number generator.
 	 * This makes each instance have a new unique Seed  and generator (with TRandom3 the periodicity is 10**600 )
 	 */
-	tofGenerator( double obSigma, int nSamples){
+	tofGenerator( double obSigma = 0.012, int nSamples = 10 ){
 		this->obSigma = obSigma;
 		this->nSamples = nSamples;
 
