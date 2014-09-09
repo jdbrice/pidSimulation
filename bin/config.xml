@@ -1,7 +1,7 @@
 <config>
 
-	<output>simulatedPid.root</output>
-	<nEvents>100000000</nEvents>
+	<output>pidNominal_b20_P0p2_2_50mil.root</output>
+	<nEvents>50000000</nEvents>
 
 	<tof>
 		<oneBetaSigma>0.012</oneBetaSigma>
@@ -14,8 +14,8 @@
 	
 	<binning>		
 		<!-- DeDx vs. Tof in slices of P -->
-		<pRange low="0.2" high="4.0" />
-		<dedxTofBinWidth p="0.05" tof="0.5" dedx="0.5" />
+		<pRange low="0.2" high="2" />
+		<dedxTofBinWidth p="0.05" tof="0.20" dedx="0.20" />
 
 		<!-- tof vs. P. Uses p binning from dedxTof-->
 		<tof low="0.5" high="4.0" binWidth="0.001"/>

@@ -131,18 +131,20 @@ public:
 		for ( unsigned long long iEvent = 0; iEvent < config.nEvents; iEvent++ ){
 			progressBar( iEvent, config.nEvents );
 
-
+			//cout << "alpha" << endl;
 			const int id = randomID();
 			const double realP = randomPt( id );
-
+			//cout << "beta" << endl;
 			const double measuredP = blurPt( realP, config.smearP );
 			const int pBin = int( TMath::Floor( (measuredP - config.pCutLow ) / config.pBinWidth ) );
 			//const double centerP = config.pCutLow + config.pBinWidth * pBin + config.pBinWidth * 0.5;
-			if ( pBin < 0 || pBin > nBinsP ){
+			//cout << "gamma" << endl;
+			if ( pBin < 0 || pBin >= nBinsP ){
 				iEvent--;
 				continue;
 			} // momentum outside of range
 
+			//cout << "delta" << endl;
 			double measuredDedx = dedx->random( measuredP, masses[ id ] );
 			double measuredTof = tof->random( measuredP, masses[ id ] );
 
@@ -164,7 +166,7 @@ public:
 
 			
 			
-
+			//cout << "epsilon" << endl;
 			// Fill the Histograms
 			// the tof vs. P
 			hTof[ id ]->Fill( measuredP, measuredTof );
@@ -185,6 +187,7 @@ public:
 			hDedxTof[ id ][ pBin ]->Fill( measuredDedx, measuredTof );
 			hDedxTof[ nSpecies ][ pBin ]->Fill( measuredDedx, measuredTof );
 
+			//cout << "zeta" << endl;
 
 
 		} // end loop events

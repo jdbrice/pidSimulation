@@ -1,7 +1,7 @@
 <config>
 
 	<output>noSmearNoMismatchSim.root</output>
-	<nEvents>1000000</nEvents>
+	<nEvents>50000000</nEvents>
 
 	<tof>
 		<oneBetaSigma>0.012</oneBetaSigma>
@@ -15,7 +15,7 @@
 	<binning>		
 		<!-- DeDx vs. Tof in slices of P -->
 		<pRange low="0.2" high="4.0" />
-		<dedxTofBinWidth p="0.05" tof="0.5" dedx="0.5" />
+		<dedxTofBinWidth p="0.05" tof="0.10" dedx="0.10" />
 
 		<!-- tof vs. P. Uses p binning from dedxTof-->
 		<tof low="0.5" high="4.0" binWidth="0.001"/>
