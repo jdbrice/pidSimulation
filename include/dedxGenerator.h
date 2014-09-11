@@ -25,11 +25,7 @@
 class dedxGenerator
 {
 protected:
-
-	/**
-	 * Parameters for the 8th order fit for dedx
-	 */
-	static const double pars[];
+	
 	/**
 	 * Random number generator with periodicity 10**600
 	 */
@@ -56,7 +52,11 @@ public:
 	 */
 	double mean( double p, double mass ){
 		
-    
+    	/**
+		 * An 8th order polynomial fit to b70
+		 */
+		const double pars[] = {-2.38469, -0.968702, 1.08892, -0.0461616, -0.449233, 0.15573, 0.0512726, -0.0348713, 0.00484003};
+
     	const double bg = TMath::Log10( p / mass );
     	double rv = pars[0];
     	double xpow = 1;
@@ -111,10 +111,6 @@ public:
 	
 };
 
-/**
- * An 8th order polynomial fit to b70
- */
-const double dedxGenerator::pars[] = {-2.38469, -0.968702, 1.08892, -0.0461616, -0.449233, 0.15573, 0.0512726, -0.0348713, 0.00484003};
 
 
 #endif
