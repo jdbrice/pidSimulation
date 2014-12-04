@@ -10,14 +10,15 @@
 
 # Remove build files
 /src/*.o
-/src/app
+/src/simulate
 
 #remove items in bin used for managing different jobs
 /bin/*.dat
 /bin/*.pdf
 /bin/*.xml
-/bin/app
+/bin/simulate
 # but keep the sample config
 !/bin/config.xml
 !/bin/ideal.xml
+
 

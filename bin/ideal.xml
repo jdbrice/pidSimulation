@@ -24,7 +24,7 @@
 
 	</binning>
 
-	<centering species="1" sigmaDedx="0.06" sigmaTof="0.012" />
+	<centering species="1" sigmaDedx="0.07" sigmaTof="0.012" />
 
 
 	<detectorEffects>

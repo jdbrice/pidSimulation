@@ -26,6 +26,9 @@ int main( int argc, char* argv[] ) {
 		// generate the events
 		pidGen->generate(  );
 
+		// generate a quick report pdf
+		pidGen->report();
+
 		delete pidGen;
 	}
 

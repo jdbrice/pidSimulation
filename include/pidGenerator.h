@@ -172,8 +172,8 @@ public:
 			hTof[ id ]->Fill( measuredP, measuredTof );
 			hTof[ nSpecies ]->Fill( measuredP, measuredTof );
 			//dedx vs. P
-			hDedx[ id ]->Fill( measuredP, measuredDedx );
-			hDedx[ nSpecies ]->Fill( measuredP, measuredDedx );
+			hDedx[ id ]->Fill( measuredP, measuredDedx * 1000 );
+			hDedx[ nSpecies ]->Fill( measuredP, measuredDedx * 1000 );
 
 			// in centered coords
 			measuredDedx = TMath::Log10( measuredDedx );
@@ -192,6 +192,22 @@ public:
 
 		} // end loop events
 
+
+	}
+
+	void report () {
+
+		TCanvas * c = new TCanvas( "report", "report", 800, 600 );
+		c->Print( "report.pdf[" );
+		for ( int iS = 0; iS < nSpecies + 1; iS++ ){
+
+			hDedx[ iS ]->Draw( "colz" );
+			gPad->SetLogz(1);
+			c->Print( "report.pdf" );
+		}
+		c->Print( "report.pdf]" );
+
+		delete c;
 
 	}
 
